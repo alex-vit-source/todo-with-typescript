@@ -47,11 +47,13 @@ export const Todo: React.FC = () => {
 
   return (
     <>
+      <div style={{ maxWidth: '400px', minHeight: '400px', borderRadius: '10px', background: '#CCFF66', padding: '5px', paddingTop: '30px' }}>
+        <div style={{ borderRadius: '5px', background: 'white', padding: '5px' }}>
+          <TodoForm onAdd={addHandler} />
 
-      <TodoForm onAdd={addHandler} />
-      <TodoList todos={todos} onToggle={toggleHandler} onRemove={removeHandler} />
-
-
+          <TodoList todos={todos} onToggle={toggleHandler} onRemove={removeHandler} />
+        </div>
+      </div>
 
 
 

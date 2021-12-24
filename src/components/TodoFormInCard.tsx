@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 
 interface TodoFormProps {
-    onAdd(title: string): void
+    ind: number
+    onAdd(cardId: number, title: string): void
 }
 
-export const TodoForm: React.FC<TodoFormProps> = (props) => { //<{ onAdd(title: string): void }> = (props) => {
+export const TodoFormInCard: React.FC<TodoFormProps> = (props) => { //<{ onAdd(title: string): void }> = (props) => {
     const [title, setTitle] = useState<string>('')
 
     const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -13,7 +14,7 @@ export const TodoForm: React.FC<TodoFormProps> = (props) => { //<{ onAdd(title: 
 
     const keyPressHandler = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
-            props.onAdd(title)
+            props.onAdd(props.ind, title)
             console.log(title)
             setTitle('')
         }

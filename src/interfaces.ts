@@ -3,3 +3,11 @@ export interface ITodo {
     id: number,
     completed: boolean
 }
+
+export type TTodos = ITodo[]
+
+
+
+export type TCards = TTodos[]
+
+

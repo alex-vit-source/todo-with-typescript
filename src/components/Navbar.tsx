@@ -7,6 +7,7 @@ export const Navbar: React.FC = () => {
             <div className="nav-wrapper purple darken-4 px1">
                 <a href="/" className="brand-logo">MyWorks</a>
                 <ul className="right hide-on-med-and-down">
+
                     <li>
                         <Link to="/">Список дел</Link>
                     </li>
