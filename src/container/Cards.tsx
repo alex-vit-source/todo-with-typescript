@@ -94,21 +94,61 @@ export const Cards: React.FC = () => {
     //     setCards(prev => [newTodo, ...prev])
     // }
 
-    // const toggleHandler = (id: number) => {
+    const toggleHandler = (cardId: number, todoId: number) => {
+        console.log(`${cardId} cardId`);
+        console.log(`${todoId} todoId`);
+        let tempTodos = cards.map((item, index) => {
+            if (cardId === index) {
+                console.log(item);
+                item.forEach(todo => {
+                    if (todo.id === todoId) {
+                        todo.completed = !todo.completed;
+                    }
+                });
+            }
+            return item
+        });
+        setCards([...tempTodos]);
 
-    //     const temp: ITodo[] = todos;
-    //     temp.forEach(todo => {
-    //         if (todo.id === id) {
-    //             todo.completed = !todo.completed;
-    //         }
-    //     });
-    //     setTodos([...temp]);
-    // }
 
-    // const removeHandler = (id: number) => {
-    //     const remove = confirm('Вы уверены что хотите удалить эту запись?') // window.confirm('Вы уверены что хотите удалить эту запись?')
-    //     if (remove) setTodos(prev => prev.filter(todo => todo.id !== id))
-    // }
+        // const temp: ITodo[] = cards[cardId];
+        // temp.forEach(todo => {
+        //     if (todo.id === todoId) {
+        //         todo.completed = !todo.completed;
+        //     }
+        // });
+        // setCards([...temp]);
+    }
+
+    const removeHandler = (cardId: number, todoId: number) => {
+        const remove = confirm('Вы уверены что хотите удалить эту запись?') // window.confirm('Вы уверены что хотите удалить эту запись?')
+        if (remove) setCards(prev => {
+            let tempTodos = prev.map((item, index) => {
+                if (cardId === index) {
+                    return item.filter(todo => todo.id !== todoId)
+                }
+                return item
+            })
+            return tempTodos
+        })
+    }
+
+    const removeCardHandler = (cardId: number) => {
+        const remove = confirm('Вы уверены что хотите удалить эту карточку?') // window.confirm('Вы уверены что хотите удалить эту запись?')
+        if (remove) setCards(prev => {
+            let tempCard = prev;
+            console.log(`=================`)
+            console.log(tempCard);
+            console.log(`ID ${cardId}`)
+            console.log(tempCard.splice(cardId, 1));
+            //let removedCard = tempCard.splice(cardId, 2);
+            //console.log(removedCard);
+            console.log(`=================`)
+            console.log(tempCard);
+
+            return [...tempCard];
+        })
+    }
 
     return (
         <>
@@ -124,12 +164,12 @@ export const Cards: React.FC = () => {
                         }}>
 
                             <div className='buttonField'>
-                                <div className="cl-btn-7"></div>
+                                <div className="cl-btn-7" onClick={() => removeCardHandler(index)}></div>
                             </div>
 
                             <div style={{ borderRadius: '5px', background: 'white', padding: '5px' }}>
                                 <TodoFormInCard ind={index} onAdd={addHandler} />
-                                <TodoListInCard todos={item} />
+                                <TodoListInCard ind={index} todos={item} onToggle={toggleHandler} onRemove={removeHandler} />
                                 {/* <TodoList todos={item} onToggle={toggleHandler} onRemove={removeHandler} /> */}
                             </div>
                         </div>

@@ -8,6 +8,6 @@ export type TTodos = ITodo[]
 
 
 
-export type TCards = TTodos[]
+export type TCards = TTodos[] | []
 
 
