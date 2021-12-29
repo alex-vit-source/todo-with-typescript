@@ -26,7 +26,7 @@ export const TodoListInCard: React.FC<TodoListProps> = (props) => {//({ todos, o
                 const liClass: string[] = ['todo']
                 if (todo.completed) liClass.push('completed')
                 return (
-                    <li className={liClass.join(' ')} key={todo.id}>
+                    <li draggable className={liClass.join(' ')} key={todo.id}>
                         <label >
                             {/* <input type="checkbox" defaultChecked={todo.completed}
                             /> */}

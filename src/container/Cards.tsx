@@ -135,19 +135,7 @@ export const Cards: React.FC = () => {
 
     const removeCardHandler = (cardId: number) => {
         const remove = confirm('Вы уверены что хотите удалить эту карточку?') // window.confirm('Вы уверены что хотите удалить эту запись?')
-        if (remove) setCards(prev => {
-            let tempCard = prev;
-            console.log(`=================`)
-            console.log(tempCard);
-            console.log(`ID ${cardId}`)
-            console.log(tempCard.splice(cardId, 1));
-            //let removedCard = tempCard.splice(cardId, 2);
-            //console.log(removedCard);
-            console.log(`=================`)
-            console.log(tempCard);
-
-            return [...tempCard];
-        })
+        if (remove) setCards(prev => prev.filter((item, index) => index !== cardId))
     }
 
     return (
