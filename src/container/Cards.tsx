@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { TodoFormInCard } from '../components/TodoFormInCard';
 import { TodoListInCard } from '../components/todoListInCard';
+import { TodoCard } from '../components/TodoCard';
 import { ITodo, TTodos, TCards } from '../interfaces';
+
 
 declare var confirm: (str: string) => boolean;
 
@@ -138,31 +140,36 @@ export const Cards: React.FC = () => {
         if (remove) setCards(prev => prev.filter((item, index) => index !== cardId))
     }
 
+    /////////////////////////////////////////////////////////////////
+    const dndCardHandler = (dragId: number, hoverId: number) => {
+        const drugCard = cards[dragId];
+        const hoverCard = cards[hoverId];
+
+
+        setCards(prev => {
+            const updatedCard = [...cards];
+            updatedCard[hoverId] = drugCard;
+            updatedCard[dragId] = hoverCard;
+            return updatedCard;
+        })
+    }
+    /////////////////////////////////////////////////////////////////
+
     return (
         <>
             <button className='btn' onClick={addCardHandler}>ADD</button>
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                {cards.map((item, index) => {
+                {cards.map((item, index) => <TodoCard key={index}
+                    ind={index}
+                    onAdd={addHandler}
+                    todos={item}
+                    onToggle={toggleHandler}
+                    onRemove={removeHandler}
+                    onRemoveCard={removeCardHandler}
+                    onDragDrop={dndCardHandler} />
 
-                    return (
-                        <div key={index} className='z-depth-3' style={{
-                            maxWidth: '400px', minHeight: '400px',
-                            borderRadius: '10px', background: '#CCFF66',
-                            padding: '5px', paddingTop: '5px', margin: '10px'
-                        }}>
 
-                            <div className='buttonField'>
-                                <div className="cl-btn-7" onClick={() => removeCardHandler(index)}></div>
-                            </div>
-
-                            <div style={{ borderRadius: '5px', background: 'white', padding: '5px' }}>
-                                <TodoFormInCard ind={index} onAdd={addHandler} />
-                                <TodoListInCard ind={index} todos={item} onToggle={toggleHandler} onRemove={removeHandler} />
-                                {/* <TodoList todos={item} onToggle={toggleHandler} onRemove={removeHandler} /> */}
-                            </div>
-                        </div>
-                    )
-                })}
+                )}
             </div>
 
 

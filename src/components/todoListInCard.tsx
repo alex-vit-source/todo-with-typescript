@@ -38,7 +38,7 @@ export const TodoListInCard: React.FC<TodoListProps> = (props) => {//({ todos, o
                 // })
 
                 return (
-                    <div >
+                    <div key={index}>
                         <li className={liClass.join(' ')} key={todo.id}>
                             {/* ref={dragRef}> */}
                             <label >
