@@ -153,6 +153,21 @@ export const Cards: React.FC = () => {
             return updatedCard;
         })
     }
+
+    const dndTodoHandler = (cardId: number, todoId: number) => {
+        const drugCard = cards[cardId];
+        const hoverCard = cards[cardId];
+        setCards(prev => {
+            let tempTodos = prev.map((item, index) => {
+                if (cardId === index) {
+                    item
+                    return item.filter(todo => todo.id !== todoId)
+                }
+                return item
+            })
+            return tempTodos
+        })
+    }
     /////////////////////////////////////////////////////////////////
 
     return (
@@ -166,7 +181,8 @@ export const Cards: React.FC = () => {
                     onToggle={toggleHandler}
                     onRemove={removeHandler}
                     onRemoveCard={removeCardHandler}
-                    onDragDrop={dndCardHandler} />
+                    onDragDrop={dndCardHandler}
+                    onDndTodo={dndTodoHandler} />
 
 
                 )}

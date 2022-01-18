@@ -13,9 +13,10 @@ interface TodoCardProps {
     onRemove(cardId: number, todoId: number): void,
     onRemoveCard(cardId: number): void,
     onDragDrop(dragId: number, hoverId: number): void
+    onDndTodo(cardId: number, todoId: number): void// Drag&Drop
 }
 
-export const TodoCard: React.FC<TodoCardProps> = ({ ind, onAdd, todos, onToggle, onRemove, onRemoveCard, onDragDrop }) => { //<{ onAdd(title: string): void }> = (props) => {
+export const TodoCard: React.FC<TodoCardProps> = ({ ind, onAdd, todos, onToggle, onRemove, onRemoveCard, onDragDrop, onDndTodo }) => { //<{ onAdd(title: string): void }> = (props) => {
 
     // useDrag - the list item is draggable
     const [{ isDragging }, dragRef] = useDrag({
@@ -24,33 +25,36 @@ export const TodoCard: React.FC<TodoCardProps> = ({ ind, onAdd, todos, onToggle,
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
-        end: (item: { ind: number }, monitor) => {
-            const didDrop = monitor.didDrop()
-            if (!didDrop) {
-                onDragDrop(item.ind, ind)
-                console.log("END")
-            }
-        }
+
+
     })
 
 
     // useDrop - the list item is also a drop area
-    const [spec, dropRef] = useDrop({
+    const [{ canDrop, isOver }, dropRef] = useDrop({
         accept: 'card',
-        hover: (item: { ind: number }) => {
+        hover: (item: { ind: number }, monitor) => {
+            const isOverCur = monitor.isOver({ shallow: true })
             const dragIndex = item.ind
             const hoverIndex = ind
-            console.log(item.ind);
+            console.log(isOverCur);
 
             if (dragIndex !== hoverIndex) onDragDrop(dragIndex, hoverIndex);
             item.ind = hoverIndex;
             console.log(item.ind);
 
+
+
+
             // moveListItem(dragIndex, hoverIndex)
             //car.index = hoverIndex
         },
+        collect: (monitor) => ({
+            isOver: monitor.isOver(),
+            canDrop: monitor.canDrop()
+        })
     })
-    const opacity = (isDragging) ? 0.5 : 1
+    const opacity = (isOver) ? 0 : 1
 
     return (
         <>
@@ -66,7 +70,7 @@ export const TodoCard: React.FC<TodoCardProps> = ({ ind, onAdd, todos, onToggle,
 
                 <div style={{ borderRadius: '5px', background: 'white', padding: '5px' }}>
                     <TodoFormInCard ind={ind} onAdd={onAdd} />
-                    <TodoListInCard ind={ind} todos={todos} onToggle={onToggle} onRemove={onRemove} />
+                    <TodoListInCard ind={ind} todos={todos} onToggle={onToggle} onRemove={onRemove} onDndTodo={onDndTodo} />
 
                 </div>
             </div>

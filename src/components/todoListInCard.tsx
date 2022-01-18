@@ -7,6 +7,7 @@ type TodoListProps = {
     ind: number
     onToggle(cardId: number, id: number): void, // onToggle: (id: number) => void
     onRemove(cardId: number, todoId: number): void
+    onDndTodo(cardId: number, todoId: number): void// Drag&Drop
 }
 
 export const TodoListInCard: React.FC<TodoListProps> = (props) => {//({ todos, onToggle, onRemove }) => {
@@ -17,9 +18,15 @@ export const TodoListInCard: React.FC<TodoListProps> = (props) => {//({ todos, o
     }
     const temptodo = props.todos;
     const tempind = props.ind;
+
     const removeHandler = (event: React.MouseEvent, cardId: number, todoId: number) => {
         event.preventDefault();
         props.onRemove(cardId, todoId);
+    }
+    //DND
+    const DndTodoHandler = (event: React.MouseEvent, cardId: number, todoId: number) => {
+        event.preventDefault();
+        props.onDndTodo(cardId, todoId);
     }
 
 
@@ -29,13 +36,6 @@ export const TodoListInCard: React.FC<TodoListProps> = (props) => {//({ todos, o
                 const liClass: string[] = ['todo']
                 if (todo.completed) liClass.push('completed')
 
-                // const [{ isDragging }, dragRef] = useDrag({
-                //     type: 'li',
-                //     item: { temptodo, tempind },
-                //     collect: (monitor) => ({
-                //         isDragging: monitor.isDragging()
-                //     })
-                // })
 
                 return (
                     <div key={index}>
