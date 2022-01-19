@@ -160,7 +160,7 @@ export const Cards: React.FC = () => {
         setCards(prev => {
             let tempTodos = prev.map((item, index) => {
                 if (cardId === index) {
-                    item
+                    //item
                     return item.filter(todo => todo.id !== todoId)
                 }
                 return item
