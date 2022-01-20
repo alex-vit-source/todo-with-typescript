@@ -154,19 +154,30 @@ export const Cards: React.FC = () => {
         })
     }
 
-    const dndTodoHandler = (cardId: number, todoId: number) => {
-        const drugCard = cards[cardId];
-        const hoverCard = cards[cardId];
-        setCards(prev => {
-            let tempTodos = prev.map((item, index) => {
-                if (cardId === index) {
-                    //item
-                    return item.filter(todo => todo.id !== todoId)
-                }
-                return item
-            })
-            return tempTodos
-        })
+    const dndTodoHandler = (cardDragId: number, cardHoverId: number, todoDrugId: number, todoHoverId: number) => {
+
+        console.log(`dragCardIndex ${cardDragId}`);
+        console.log(`dragTodoIndex ${todoDrugId}`);
+        console.log(`hoverCardIndex ${cardHoverId}`);
+        console.log(`hoverTodoIndex ${todoHoverId}`);
+
+        if (cardDragId === cardHoverId) {
+
+        }
+        const drugTodo = cards[cardDragId][todoDrugId];
+        const hoverTodo = cards[cardHoverId][todoHoverId];
+        console.log(drugTodo);
+        console.log(hoverTodo);
+        // setCards(prev => {
+        //     let tempTodos = prev.map((item, index) => {
+        //         if (cardId === index) {
+        //             //item
+        //             return item.filter(todo => todo.id !== todoId)
+        //         }
+        //         return item
+        //     })
+        //     return tempTodos
+        // })
     }
     /////////////////////////////////////////////////////////////////
 

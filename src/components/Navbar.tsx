@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import M from 'materialize-css';
+//import M from 'materialize-css';
 
 
 export const Navbar: React.FC = () => {
 
     useEffect(() => {
+        const M = window.M;
         const elem = document.querySelector(".sidenav");
         const instance = M.Sidenav.init(elem!, {
             edge: "left",

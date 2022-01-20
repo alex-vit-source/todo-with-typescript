@@ -9,7 +9,7 @@ type TodoProps = {
     indTodo: number,
     onToggle(cardId: number, id: number): void, // onToggle: (id: number) => void
     removeHandler(event: React.MouseEvent, cardId: number, todoId: number): void
-    onDndTodo(event: React.MouseEvent, cardId: number, todoId: number): void// Drag&Drop
+    onDndTodo(cardDragId: number, cardHoverId: number, todoDrugId: number, todoHoverId: number): void// Drag&Drop
 }
 
 export const TodoElement: React.FC<TodoProps> = ({ todo, indCard, indTodo, onToggle, removeHandler, onDndTodo }) => {
@@ -35,14 +35,15 @@ export const TodoElement: React.FC<TodoProps> = ({ todo, indCard, indTodo, onTog
             const dragTodoIndex = item.indTodo;
             const hoverCardIndex = indCard;
             const hoverTodoIndex = indTodo;
-            console.log(`dragCardIndex ${dragCardIndex}`);
-            console.log(`dragTodoIndex ${dragTodoIndex}`);
-            console.log(`hoverCardIndex ${hoverCardIndex}`);
-            console.log(`hoverTodoIndex ${hoverTodoIndex}`);
-            console.log(isOverCur);
+            // console.log(`dragCardIndex ${dragCardIndex}`);
+            // console.log(`dragTodoIndex ${dragTodoIndex}`);
+            // console.log(`hoverCardIndex ${hoverCardIndex}`);
+            // console.log(`hoverTodoIndex ${hoverTodoIndex}`);
+            // console.log(isOverCur);
 
-            // if (dragIndex !== hoverIndex) onDragDrop(dragIndex, hoverIndex);
-            // item.ind = hoverIndex;
+            if ((dragCardIndex !== hoverCardIndex) || (dragTodoIndex !== hoverTodoIndex)) onDndTodo(dragCardIndex, hoverCardIndex, dragTodoIndex, hoverTodoIndex);
+            item.indCard = hoverCardIndex;
+            item.indTodo = hoverTodoIndex;
             // console.log(item.ind);
 
 

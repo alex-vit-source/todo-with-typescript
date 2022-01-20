@@ -13,7 +13,7 @@ interface TodoCardProps {
     onRemove(cardId: number, todoId: number): void,
     onRemoveCard(cardId: number): void,
     onDragDrop(dragId: number, hoverId: number): void
-    onDndTodo(cardId: number, todoId: number): void// Drag&Drop
+    onDndTodo(cardDragId: number, cardHoverId: number, todoDrugId: number, todoHoverId: number): void// Drag&Drop
 }
 
 export const TodoCard: React.FC<TodoCardProps> = ({ ind, onAdd, todos, onToggle, onRemove, onRemoveCard, onDragDrop, onDndTodo }) => { //<{ onAdd(title: string): void }> = (props) => {
