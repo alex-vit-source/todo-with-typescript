@@ -3,6 +3,7 @@ import { TodoFormInCard } from '../components/TodoFormInCard';
 import { TodoListInCard } from '../components/todoListInCard';
 import { TodoCard } from '../components/TodoCard';
 import { ITodo, TTodos, TCards } from '../interfaces';
+import { createTypeReferenceDirectiveResolutionCache } from 'typescript';
 
 
 declare var confirm: (str: string) => boolean;
@@ -153,19 +154,54 @@ export const Cards: React.FC = () => {
             return updatedCard;
         })
     }
+    let countOne = 0;
+    let countTwo = 0;
+    let countThree = 0;
 
     const dndTodoHandler = (cardDragId: number, cardHoverId: number, todoDrugId: number, todoHoverId: number) => {
 
-        console.log(`dragCardIndex ${cardDragId}`);
-        console.log(`dragTodoIndex ${todoDrugId}`);
-        console.log(`hoverCardIndex ${cardHoverId}`);
-        console.log(`hoverTodoIndex ${todoHoverId}`);
+        // console.log(`dragCardIndex ${cardDragId}`);
+        // console.log(`dragTodoIndex ${todoDrugId}`);
+        // console.log(`hoverCardIndex ${cardHoverId}`);
+        // console.log(`hoverTodoIndex ${todoHoverId}`);
 
-        if (cardDragId === cardHoverId) {
 
-        }
         const drugTodo = cards[cardDragId][todoDrugId];
         const hoverTodo = cards[cardHoverId][todoHoverId];
+
+        if (cardDragId === cardHoverId) {
+            countOne++;
+            console.log(countOne);
+            setCards(prev => {
+                const updatedCard = [...cards];
+                updatedCard[cardHoverId][todoDrugId] = hoverTodo;
+                const arrBefore = updatedCard[cardHoverId].slice(0, todoHoverId);
+                const arrAfter = updatedCard[cardHoverId].slice(todoHoverId + 1);
+                // console.log(arrBefore);
+                // console.log(arrAfter);
+                updatedCard[cardHoverId] = [...arrBefore, drugTodo, ...arrAfter];
+
+                return updatedCard;
+            })
+        }
+
+        if (cardDragId !== cardHoverId) {
+            countTwo++;
+            console.log(countTwo)
+            setCards(prev => {
+                const updatedCard = [...cards];
+                //const deletedEl = updatedCard[cardDragId].splice(todoDrugId, 1);
+                const arrBefore = updatedCard[cardHoverId].slice(0, todoHoverId);
+                const arrAfter = updatedCard[cardHoverId].slice(todoHoverId);
+                console.log(arrBefore);
+                console.log(arrAfter);
+                updatedCard[cardHoverId] = [...arrBefore, drugTodo, ...arrAfter];
+                const deletedEl = updatedCard[cardDragId].splice(todoDrugId, 1);
+                return updatedCard;
+            })
+        }
+
+
         console.log(drugTodo);
         console.log(hoverTodo);
         // setCards(prev => {

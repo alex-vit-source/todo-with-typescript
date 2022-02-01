@@ -59,9 +59,15 @@ export const TodoElement: React.FC<TodoProps> = ({ todo, indCard, indTodo, onTog
     })
     const opacity = (isOver) ? 0 : 1
 
+    ////////////////////////////////////
+
+
+
+    /////////////////////////////////////////
 
 
     const liClass: string[] = ['todo']
+
     if (todo.completed) liClass.push('completed')
 
 
