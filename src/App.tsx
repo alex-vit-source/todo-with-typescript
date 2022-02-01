@@ -3,15 +3,15 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
-
 import { Cards } from './container/Cards';
 import { NotFound } from './components/NotFound';
 import { About } from './components/About';
+import { observer } from 'mobx-react-lite';
 
 
 
 
-const App: React.FC = () => {
+const App: React.FC = observer(() => {
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -33,6 +33,6 @@ const App: React.FC = () => {
       </>
     </DndProvider>
   );
-}
+})
 
 export default App;

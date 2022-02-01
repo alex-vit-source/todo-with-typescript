@@ -64,7 +64,7 @@ export const TodoListInCard: React.FC<TodoListProps> = (props) => {//({ todos, o
     return (
         <ul>
             {props.todos.map((todo, index) =>
-                <TodoElement
+                <TodoElement key={todo.id}
                     todo={todo}
                     indCard={props.ind}
                     indTodo={index}
