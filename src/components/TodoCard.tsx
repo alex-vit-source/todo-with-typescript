@@ -7,17 +7,11 @@ import todostore from '../store/todostore';
 import { observer } from 'mobx-react-lite';
 
 interface TodoCardProps {
-    ind: number
-    onAdd(cardId: number, title: string): void
+    ind: number,
     todos: ITodo[],
-    onToggle(cardId: number, id: number): void, // onToggle: (id: number) => void
-    onRemove(cardId: number, todoId: number): void,
-    onRemoveCard(cardId: number): void,
-    onDragDrop(dragId: number, hoverId: number): void
-    onDndTodo(cardDragId: number, cardHoverId: number, todoDrugId: number, todoHoverId: number): void// Drag&Drop
 }
 
-export const TodoCard: React.FC<TodoCardProps> = observer(({ ind, onAdd, todos, onToggle, onRemove, onRemoveCard, onDragDrop, onDndTodo }) => { //<{ onAdd(title: string): void }> = (props) => {
+export const TodoCard: React.FC<TodoCardProps> = observer(({ ind, todos }) => { //<{ onAdd(title: string): void }> = (props) => {
 
     // useDrag - the list item is draggable
     const [{ isDragging }, dragRef] = useDrag({
@@ -38,17 +32,8 @@ export const TodoCard: React.FC<TodoCardProps> = observer(({ ind, onAdd, todos, 
             const isOverCur = monitor.isOver({ shallow: true })
             const dragIndex = item.ind
             const hoverIndex = ind
-            console.log(isOverCur);
-
-            if (dragIndex !== hoverIndex) onDragDrop(dragIndex, hoverIndex);
+            if (dragIndex !== hoverIndex) todostore.dndCardHandler(dragIndex, hoverIndex);
             item.ind = hoverIndex;
-            console.log(item.ind);
-
-
-
-
-            // moveListItem(dragIndex, hoverIndex)
-            //car.index = hoverIndex
         },
         collect: (monitor) => ({
             isOver: monitor.isOver(),
@@ -70,8 +55,8 @@ export const TodoCard: React.FC<TodoCardProps> = observer(({ ind, onAdd, todos, 
                 </div>
 
                 <div style={{ borderRadius: '5px', background: 'white', padding: '5px' }}>
-                    <TodoFormInCard ind={ind} onAdd={onAdd} />
-                    <TodoListInCard ind={ind} todos={todos} onToggle={onToggle} onRemove={onRemove} onDndTodo={onDndTodo} />
+                    <TodoFormInCard ind={ind} />
+                    <TodoListInCard ind={ind} todos={todos} />
 
                 </div>
             </div>

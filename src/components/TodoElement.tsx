@@ -1,18 +1,16 @@
 import React from "react";
 import { ITodo } from "../interfaces";
 import { useDrag, useDrop } from 'react-dnd';
+import todostore from '../store/todostore';
+import { observer } from 'mobx-react-lite';
 
 type TodoProps = {
-
     todo: ITodo,
     indCard: number,
     indTodo: number,
-    onToggle(cardId: number, id: number): void, // onToggle: (id: number) => void
-    removeHandler(event: React.MouseEvent, cardId: number, todoId: number): void
-    onDndTodo(cardDragId: number, cardHoverId: number, todoDrugId: number, todoHoverId: number): void// Drag&Drop
 }
 
-export const TodoElement: React.FC<TodoProps> = ({ todo, indCard, indTodo, onToggle, removeHandler, onDndTodo }) => {
+export const TodoElement: React.FC<TodoProps> = observer(({ todo, indCard, indTodo }) => {
 
     // useDrag - the list item is draggable
     const [{ isDragging }, dragRef] = useDrag({
@@ -21,8 +19,6 @@ export const TodoElement: React.FC<TodoProps> = ({ todo, indCard, indTodo, onTog
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
-
-
     })
 
 
@@ -35,22 +31,12 @@ export const TodoElement: React.FC<TodoProps> = ({ todo, indCard, indTodo, onTog
             const dragTodoIndex = item.indTodo;
             const hoverCardIndex = indCard;
             const hoverTodoIndex = indTodo;
-            // console.log(`dragCardIndex ${dragCardIndex}`);
-            // console.log(`dragTodoIndex ${dragTodoIndex}`);
-            // console.log(`hoverCardIndex ${hoverCardIndex}`);
-            // console.log(`hoverTodoIndex ${hoverTodoIndex}`);
-            // console.log(isOverCur);
-
-            if ((dragCardIndex !== hoverCardIndex) || (dragTodoIndex !== hoverTodoIndex)) onDndTodo(dragCardIndex, hoverCardIndex, dragTodoIndex, hoverTodoIndex);
+            if ((dragCardIndex !== hoverCardIndex) || (dragTodoIndex !== hoverTodoIndex)) todostore.dndTodoHandler(dragCardIndex,
+                hoverCardIndex,
+                dragTodoIndex,
+                hoverTodoIndex);
             item.indCard = hoverCardIndex;
             item.indTodo = hoverTodoIndex;
-            // console.log(item.ind);
-
-
-
-
-            // moveListItem(dragIndex, hoverIndex)
-            //car.index = hoverIndex
         },
         collect: (monitor) => ({
             isOver: monitor.isOver(),
@@ -80,14 +66,14 @@ export const TodoElement: React.FC<TodoProps> = ({ todo, indCard, indTodo, onTog
                 /> */}
                     <input type="checkbox" checked={todo.completed}
                         onChange={() =>
-
-                            onToggle(indCard, todo.id)
+                            todostore.toggleHandler(indCard, todo.id)
+                            // onToggle(indCard, todo.id)
                         } />
                     <span style={{ width: '80%', height: 'auto', display: 'block', wordWrap: 'break-word' }}>{todo.title}</span>
                     {/* <i className="material-icons red-text">delete</i> */}
-                    <i className="material-icons red-text" onClick={(event) => removeHandler(event, indCard, todo.id)}>delete</i>
+                    <i className="material-icons red-text" onClick={(event) => todostore.removeHandler(event, indCard, todo.id)}>delete</i>
                 </label>
             </li>
         </div>
     )
-}//({ todos, onToggle, onRemove }) => {}
+})//({ todos, onToggle, onRemove }) => {}

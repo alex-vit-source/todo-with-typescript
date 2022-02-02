@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import todostore from '../store/todostore';
+import { observer } from 'mobx-react-lite';
 
 interface TodoFormProps {
     ind: number
-    onAdd(cardId: number, title: string): void
+
 }
 
-export const TodoFormInCard: React.FC<TodoFormProps> = (props) => { //<{ onAdd(title: string): void }> = (props) => {
+export const TodoFormInCard: React.FC<TodoFormProps> = observer(({ ind }) => { //<{ onAdd(title: string): void }> = (props) => {
     const [title, setTitle] = useState<string>('')
 
     const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,7 +16,8 @@ export const TodoFormInCard: React.FC<TodoFormProps> = (props) => { //<{ onAdd(t
 
     const keyPressHandler = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
-            props.onAdd(props.ind, title)
+            todostore.addHandler(ind, title)
+            //props.onAdd(props.ind, title)
             console.log(title)
             setTitle('')
         }
@@ -33,4 +36,4 @@ export const TodoFormInCard: React.FC<TodoFormProps> = (props) => { //<{ onAdd(t
             <label htmlFor="title" className="active" >Введите название дела</label>
         </div>
     )
-} 
+})

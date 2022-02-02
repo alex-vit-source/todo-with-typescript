@@ -14,24 +14,24 @@ import { observer } from 'mobx-react-lite';
 const App: React.FC = observer(() => {
 
   return (
-    <DndProvider backend={HTML5Backend}>
-      <>
-        <Router>
-          <Navbar />
-          {/* <Todo /> */}
 
-          <div className='container'>
-            <Routes>
-              <Route path="/" element={<Cards />} />
-              <Route path="/about" element={<About />} />
-              <Route path="*" element={<NotFound />} />
-              <Route />
-            </Routes>
-          </div>
+    <>
+      <Router>
+        <Navbar />
+        {/* <Todo /> */}
 
-        </Router>
-      </>
-    </DndProvider>
+        <div className='container'>
+          <Routes>
+            <Route path="/" element={<Cards />} />
+            <Route path="/about" element={<About />} />
+            <Route path="*" element={<NotFound />} />
+            <Route />
+          </Routes>
+        </div>
+
+      </Router>
+    </>
+
   );
 })
 
