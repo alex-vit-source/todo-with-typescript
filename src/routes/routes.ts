@@ -1,7 +1,8 @@
-import { LOGIN_ROUTE, CHAT_ROUTE, ABOUT_ROUTE, CARDS_ROUTE } from '../utils/consts';
-import Login from './Login';
+import { LOGIN_ROUTE, ABOUT_ROUTE, CARDS_ROUTE, NOTFOUND_ROUTE } from '../utils/consts';
+import Login from '../components/Login'
 import { About } from '../components/About';
 import { Cards } from '../container/Cards';
+import { NotFound } from '../components/NotFound';
 
 
 
@@ -13,17 +14,26 @@ export const publicRoutes = [
     {
         path: ABOUT_ROUTE,
         Component: About
-    }
+    },
+    {
+        path: NOTFOUND_ROUTE,
+        Component: NotFound
+    },
 
 ];
 
 export const privateRoutes = [
     {
-        path: CHAT_ROUTE,
-        Component: Chat
-    },
-    {
         path: CARDS_ROUTE,
         Component: Cards
     },
+    {
+        path: ABOUT_ROUTE,
+        Component: About
+    },
+    {
+        path: NOTFOUND_ROUTE,
+        Component: NotFound
+    },
+
 ]

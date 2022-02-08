@@ -6,8 +6,10 @@ declare var confirm: (str: string) => boolean;
 
 class Todostore {
     cards: TTodos[] = [];
-    counter: number = 0;
-    tempArr: string[] = ['dfg', 'dfgd'];
+    // counter: number = 0;
+    // tempArr: string[] = ['dfg', 'dfgd'];
+    access: boolean = false;
+
     constructor() {
         makeAutoObservable(this)
     }

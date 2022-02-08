@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { observer } from 'mobx-react-lite';
 //import M from 'materialize-css';
 
 
-export const Navbar: React.FC = () => {
+export const Navbar: React.FC = observer(() => {
 
     useEffect(() => {
         const M = window.M;
@@ -43,4 +44,4 @@ export const Navbar: React.FC = () => {
             </ul>
         </>
     )
-}
+})
