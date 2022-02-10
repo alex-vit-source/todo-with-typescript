@@ -27,7 +27,7 @@ export const Cards: React.FC = observer(() => {
 
     return (
         <>
-            <button className='btn' onClick={todostore.addCardHandler}>ADD</button>
+            <button className='btn' onClick={todostore.addCardHandler}><i className="material-icons">add</i>Add Card</button>
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                 {todostore.cards.map((item, index) => <TodoCard key={index}
                     ind={index}
