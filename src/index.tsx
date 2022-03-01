@@ -18,15 +18,25 @@ import { getAuth } from 'firebase/auth';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
 const firebaseConfig = {
-  apiKey: "AIzaSyA4mJiAnVVgrBB_-NRTXsmfqZ9z60-QiUA",
-  authDomain: "company-affairs.firebaseapp.com",
-  projectId: "company-affairs",
-  storageBucket: "company-affairs.appspot.com",
-  messagingSenderId: "175974537426",
-  appId: "1:175974537426:web:0305dfe94db01365d7b50b",
-  measurementId: "G-NWXLSS9M24"
+  apiKey: "AIzaSyD-SAgYLkNB38PEzxPD7md0rDzTyZlHojg",
+  authDomain: "react-talk-76f86.firebaseapp.com",
+  projectId: "react-talk-76f86",
+  storageBucket: "react-talk-76f86.appspot.com",
+  messagingSenderId: "973277192119",
+  appId: "1:973277192119:web:4f0db356ae1b6faa0ed232",
+  measurementId: "G-5YZHH2EER0"
 };
+// const firebaseConfig = {
+//   apiKey: "AIzaSyA4mJiAnVVgrBB_-NRTXsmfqZ9z60-QiUA",
+//   authDomain: "company-affairs.firebaseapp.com",
+//   projectId: "company-affairs",
+//   storageBucket: "company-affairs.appspot.com",
+//   messagingSenderId: "175974537426",
+//   appId: "1:175974537426:web:0305dfe94db01365d7b50b",
+//   measurementId: "G-NWXLSS9M24"
+// };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

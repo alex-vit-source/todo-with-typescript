@@ -8,10 +8,14 @@ class Todostore {
     cards: TTodos[] = [];
     // counter: number = 0;
     // tempArr: string[] = ['dfg', 'dfgd'];
-    access: boolean = true;
-    auth: any;;
+    access: boolean = false;
+    auth: any;
     app: any;
     firestore: any;
+
+    user: any;
+    loading: boolean = false;
+    error: any;
 
     constructor() {
         makeAutoObservable(this)

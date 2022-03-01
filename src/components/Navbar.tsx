@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import todostore from '../store/todostore';
 import { observer } from 'mobx-react-lite';
+import { LogIn, LogOut } from './Login';
+
+
+
 //import M from 'materialize-css';
 
 
@@ -14,6 +19,9 @@ export const Navbar: React.FC = observer(() => {
             inDuration: 300
         });
     }, [])
+
+
+
 
 
     return (
@@ -30,6 +38,10 @@ export const Navbar: React.FC = observer(() => {
                         <li>
                             <Link to="about">О приложении</Link>
                         </li>
+                        {todostore.access ? <li><button onClick={LogOut}>{'<'}--Выйти</button></li> : <li><button onClick={LogIn} >Войти--{'>'}</button></li>}
+                        {/* <li>
+                            <Link to="about">О приложении</Link>
+                        </li> */}
                     </ul>
                 </div>
             </nav>
@@ -41,6 +53,10 @@ export const Navbar: React.FC = observer(() => {
                 <li>
                     <Link to="about">О приложении</Link>
                 </li>
+                <li>
+                    <Link to="login">{todostore.access ? <button onClick={LogOut}>{'<'}--Выйти</button> : <button onClick={LogIn} >Войти--{'>'}</button>}</Link>
+                </li>
+
             </ul>
         </>
     )
