@@ -9,6 +9,7 @@ import { About } from './components/About';
 import { privateRoutes, publicRoutes } from './routes/routes';
 import { observer } from 'mobx-react-lite';
 import todostore from './store/todostore';
+import { onAuthStateChanged } from 'firebase/auth';
 import { CARDS_ROUTE, LOGIN_ROUTE } from './utils/consts';
 
 
@@ -17,6 +18,30 @@ import { CARDS_ROUTE, LOGIN_ROUTE } from './utils/consts';
 const App: React.FC = observer(() => {
   const availableRoute = todostore.access ? privateRoutes : publicRoutes;
   const redirRoute = todostore.access ? CARDS_ROUTE : LOGIN_ROUTE;
+
+  onAuthStateChanged(todostore.auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      const uid = user.uid;
+      todostore.user = user;
+      todostore.loading = false;
+      todostore.error = undefined;
+      todostore.access = true;
+      //  navigate(CARDS_ROUTE);
+
+
+      // ...
+    }
+    else {
+      // User is signed out
+      // ...
+      todostore.loading = false;
+      todostore.user = undefined;
+      todostore.error = undefined;
+      // navigate(LOGIN_ROUTE);
+    }
+  });
 
 
   return (

@@ -4,22 +4,73 @@ import { TTodos, } from '../interfaces';
 
 import todostore from '../store/todostore';
 import { observer } from 'mobx-react-lite';
+import { collection, doc, getDoc, setDoc } from "firebase/firestore";
+
 
 
 
 
 export const Cards: React.FC = observer(() => {
 
-
+    const obj = { read: false };
 
     useEffect(() => {
-        const data = JSON.parse(localStorage.getItem('cards') || '[]') as TTodos[]
-        todostore.cards = [...data];
-        todostore.showCards();
+        let data: TTodos[] = [];
+        async function getData() {
+            console.log('getting');
+            const docRef = doc(todostore.firestore, "todos", todostore.user.email);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                console.log("Document data:", docSnap.data());
+                const dat = docSnap.data();
+                const firebaseTodoString = dat.arrayTodo;
+
+                data = JSON.parse(firebaseTodoString || '[]') as TTodos[]
+                todostore.cards = [...data];
+                todostore.showCards();
+                todostore.firstInitData = true;
+
+
+            }
+            else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+
+        }
+        getData();
+
+        // const data = JSON.parse(localStorage.getItem('cards') || '[]') as TTodos[]
+        // todostore.cards = [...data];
+        // todostore.showCards();
     }, [])
 
     useEffect(() => {
-        localStorage.setItem('cards', JSON.stringify(todostore.cards))
+
+        // localStorage.setItem('cards', JSON.stringify(todostore.cards));
+        //firestore data write
+
+        const todoRef = collection(todostore.firestore, "todos");
+
+        const data = [...todostore.cards];
+
+        async function setData() {
+
+            if (todostore.firstInitData === true) {
+                console.log('update data');
+                await setDoc(doc(todoRef, todostore.user.email), {
+
+                    arrayTodo: JSON.stringify(todostore.cards)
+                });
+            }
+        }
+
+        setData();
+
+
+        ///////////////////
+
     }, [todostore.cards])
 
 

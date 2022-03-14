@@ -1,66 +1,13 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import { onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { signOut, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import todostore from '../store/todostore';
 import { observer } from 'mobx-react-lite';
 import { CARDS_ROUTE, LOGIN_ROUTE } from '../utils/consts';
 
-export const LogIn = () => {
-    const navigate = useNavigate();
-    const provider = new GoogleAuthProvider();
-    todostore.loading = true;
-    signInWithPopup(todostore.auth, provider)
-        .then((result) => {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential!.accessToken;
-            console.log(token);
-            // The signed-in user info.
-            const user = result.user;
-            todostore.user = result.user;
-            todostore.loading = false;
-            todostore.error = undefined;
-            todostore.access = true;
-            navigate(CARDS_ROUTE);
-            console.log(user);
-            // ...
-        }).catch((error) => {
-            todostore.error = error;
-            todostore.loading = false;
-            // Handle Errors here.
-            const errorCode = error.code;
-            console.log(errorCode);
-            const errorMessage = error.message;
-            console.log(errorMessage);
-            // The email of the user's account used.
-            const email = error.email;
-            console.log(email);
-            // The AuthCredential type that was used.
-            const credential = GoogleAuthProvider.credentialFromError(error);
-            // ...
-        });
-    // signInWithGoogle();
-};
-export const LogOut = () => {
-    const navigate = useNavigate();
-    todostore.loading = true;
-    signOut(todostore.auth).then(() => {
-        // Sign-out successful.
-        console.log('singOut OK')
-        todostore.loading = false;
-        todostore.user = undefined;
-        todostore.error = undefined;
-        todostore.access = false;
-        navigate(LOGIN_ROUTE);
-    }).catch((error) => {
-        // An error happened.
-        console.log('singOut Error')
-        todostore.loading = false;
-        todostore.error = error;
-    });
 
-};
+
 
 
 const Login: React.FC = observer(() => {
@@ -69,30 +16,56 @@ const Login: React.FC = observer(() => {
     const [loginClass, setLoginClass] = useState<string>('');
     const [loadingClass, setLoadingClass] = useState<string>('hide');
 
+    const LogIn = () => {
 
-    // onAuthStateChanged(todostore.auth, (user) => {
-    //     if (user) {
-    //         // User is signed in, see docs for a list of available properties
-    //         // https://firebase.google.com/docs/reference/js/firebase.User
-    //         const uid = user.uid;
-    //         todostore.user = user;
-    //         todostore.loading = false;
-    //         todostore.error = undefined;
-    //         todostore.access = true;
-    //         navigate(CARDS_ROUTE);
+        const provider = new GoogleAuthProvider();
+        todostore.loading = true;
+        console.log('Hi')
+        signInWithPopup(todostore.auth, provider)
+            .then((result) => {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential!.accessToken;
+                console.log(token);
+                // The signed-in user info.
+                const user = result.user;
+                todostore.user = result.user;
+                todostore.loading = false;
+                todostore.error = undefined;
+                todostore.access = true;
+                navigate(CARDS_ROUTE);
+                console.log(user);
+                // ...
+            }).catch((error) => {
+                todostore.error = error;
+                todostore.loading = false;
+                // Handle Errors here.
+                const errorCode = error.code;
+                console.log(errorCode);
+                const errorMessage = error.message;
+                console.log(errorMessage);
+                // The email of the user's account used.
+                const email = error.email;
+                console.log(email);
+                // The AuthCredential type that was used.
+                const credential = GoogleAuthProvider.credentialFromError(error);
+                // ...
+            });
+        // signInWithGoogle();
+    };
 
+    // const Entrance = () => {
+    //     const navigate = useNavigate();
+    //     LogOut();
+    //     navigate(LOGIN_ROUTE);
 
-    //         // ...
-    //     }
-    //     else {
-    //         // User is signed out
-    //         // ...
-    //         todostore.loading = false;
-    //         todostore.user = undefined;
-    //         todostore.error = undefined;
-    //         navigate(LOGIN_ROUTE);
-    //     }
-    // });
+    // };
+
+    // const Exit = () => {
+    //     const navigate = useNavigate();
+    //     LogIn();
+    //     navigate(CARDS_ROUTE);
+    // }
 
 
 
@@ -120,7 +93,7 @@ const Login: React.FC = observer(() => {
         return (
             <div>
                 <p>Current User: {todostore.user.email}</p>
-                <button onClick={LogOut}>Log out</button>
+                {/* <button onClick={Exit}>Log out</button> */}
             </div>
         );
     }

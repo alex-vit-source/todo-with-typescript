@@ -5,6 +5,7 @@ import { ITodo, TTodos, } from '../interfaces';
 declare var confirm: (str: string) => boolean;
 
 class Todostore {
+    firstInitData: boolean = false;
     cards: TTodos[] = [];
     // counter: number = 0;
     // tempArr: string[] = ['dfg', 'dfgd'];
