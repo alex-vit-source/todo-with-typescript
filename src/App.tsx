@@ -50,7 +50,9 @@ const App: React.FC = observer(() => {
       <Router>
         <div className="overlay" style={{ display: 'none' }}></div>
         <div className="box" style={{ display: 'none' }}>
-
+          <div className='buttonField'>
+            <div className="cl-btn-7" onClick={() => { console.log('Close window') }}></div>
+          </div>
           <h1>Important message</h1>
           <p>
             Here comes a very important message for your user.
