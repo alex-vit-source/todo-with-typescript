@@ -180,3 +180,31 @@ code {
   }
 }
 /*========================================================== */
+
+.overlay{
+  background: black;
+  opacity: .5;
+  position:fixed;
+  top:0px;
+  bottom:0px;
+  left:0px;
+  right:0px;
+  z-index:100;
+}
+
+.box{
+  position:fixed;
+  top:200px;
+  left:30%;
+  right:30%;
+  max-width: 800px; 
+  min-width: 300px;
+  min-height: 500px;
+
+  background-color:#CCFF66;
+  color:#7F7F7F;
+  padding: 5px;
+  border:2px solid #ccc;
+  border-radius: 10px;
+  z-index:101;
+}

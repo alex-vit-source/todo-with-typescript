@@ -48,6 +48,15 @@ const App: React.FC = observer(() => {
 
     <>
       <Router>
+        <div className="overlay" style={{ display: 'none' }}></div>
+        <div className="box" style={{ display: 'none' }}>
+
+          <h1>Important message</h1>
+          <p>
+            Here comes a very important message for your user.
+            Turn this window off by clicking the cross.
+          </p>
+        </div>
         <Navbar />
 
         <div className='container'>
