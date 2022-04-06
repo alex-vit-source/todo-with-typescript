@@ -25,6 +25,7 @@ export const Cards: React.FC = observer(() => {
                 console.log("Document data:", docSnap.data());
                 const dat = docSnap.data();
                 const firebaseTodoString = dat.arrayTodo;
+                const firebaseTablesString = dat.allTables;
 
                 data = JSON.parse(firebaseTodoString || '[]') as TTodos[]
                 todostore.cards = [...data];
@@ -61,7 +62,8 @@ export const Cards: React.FC = observer(() => {
                 console.log('update data');
                 await setDoc(doc(todoRef, todostore.user.email), {
 
-                    arrayTodo: JSON.stringify(todostore.cards)
+                    arrayTodo: JSON.stringify(todostore.cards),
+                    allTables: JSON.stringify(todostore.alltables)
                 });
             }
         }

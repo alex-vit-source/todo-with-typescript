@@ -3,6 +3,7 @@ import React from 'react';
 // import { HTML5Backend } from 'react-dnd-html5-backend';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
+import { TodoBox } from './components/TodoBox';
 import { Cards } from './container/Cards';
 import { NotFound } from './components/NotFound';
 import { About } from './components/About';
@@ -48,17 +49,7 @@ const App: React.FC = observer(() => {
 
     <>
       <Router>
-        <div className="overlay" style={{ display: 'none' }}></div>
-        <div className="box" style={{ display: 'none' }}>
-          <div className='buttonField'>
-            <div className="cl-btn-7" onClick={() => { console.log('Close window') }}></div>
-          </div>
-          <h1>Important message</h1>
-          <p>
-            Here comes a very important message for your user.
-            Turn this window off by clicking the cross.
-          </p>
-        </div>
+        <TodoBox />
         <Navbar />
 
         <div className='container'>

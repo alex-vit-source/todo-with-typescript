@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx"
-import { ITodo, TTodos, } from '../interfaces';
+import { ITodo, TTodos, AllTables } from '../interfaces';
 
 
 declare var confirm: (str: string) => boolean;
@@ -7,6 +7,17 @@ declare var confirm: (str: string) => boolean;
 class Todostore {
     firstInitData: boolean = false;
     cards: TTodos[] = [];
+    alltables: AllTables = {
+        myTables: [{
+            id: 1,
+            ttodos: this.cards,
+            shareTo: ['abc@mail.com', 'bcd@mail.com']
+        }, {
+            id: 2,
+            ttodos: this.cards,
+            shareTo: ['fddgfdc@mail.com', 'badbcd@mail.com']
+        }], accessTo: []
+    };
     // counter: number = 0;
     // tempArr: string[] = ['dfg', 'dfgd'];
     access: boolean = false;
