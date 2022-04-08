@@ -12,7 +12,8 @@ export type TCards = TTodos[] | []
 
 
 export interface Table {
-    id: number,              //Рабочий стол
+    id: number,
+    name: string,              //Рабочий стол
     ttodos: TCards,
     shareTo: string[],
 }

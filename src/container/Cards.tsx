@@ -12,68 +12,68 @@ import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 
 export const Cards: React.FC = observer(() => {
 
-    const obj = { read: false };
+    // const obj = { read: false };
 
-    useEffect(() => {
-        let data: TTodos[] = [];
-        async function getData() {
-            console.log('getting');
-            const docRef = doc(todostore.firestore, "todos", todostore.user.email);
-            const docSnap = await getDoc(docRef);
+    // useEffect(() => {
+    //     let data: TTodos[] = [];
+    //     async function getData() {
+    //         console.log('getting');
+    //         const docRef = doc(todostore.firestore, "todos", todostore.user.email);
+    //         const docSnap = await getDoc(docRef);
 
-            if (docSnap.exists()) {
-                console.log("Document data:", docSnap.data());
-                const dat = docSnap.data();
-                const firebaseTodoString = dat.arrayTodo;
-                const firebaseTablesString = dat.allTables;
-
-                data = JSON.parse(firebaseTodoString || '[]') as TTodos[]
-                todostore.cards = [...data];
-                todostore.showCards();
-                todostore.firstInitData = true;
+    //         if (docSnap.exists()) {
+    //             console.log("Document data:", docSnap.data());
+    //             const dat = docSnap.data();
+    //             const firebaseTodoString = dat.arrayTodo;
 
 
-            }
-            else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-
-        }
-        getData();
-
-        // const data = JSON.parse(localStorage.getItem('cards') || '[]') as TTodos[]
-        // todostore.cards = [...data];
-        // todostore.showCards();
-    }, [])
-
-    useEffect(() => {
-
-        // localStorage.setItem('cards', JSON.stringify(todostore.cards));
-        //firestore data write
-
-        const todoRef = collection(todostore.firestore, "todos");
-
-        const data = [...todostore.cards];
-
-        async function setData() {
-
-            if (todostore.firstInitData === true) {
-                console.log('update data');
-                await setDoc(doc(todoRef, todostore.user.email), {
-
-                    arrayTodo: JSON.stringify(todostore.cards),
-                    allTables: JSON.stringify(todostore.alltables)
-                });
-            }
-        }
-
-        setData();
+    //             data = JSON.parse(firebaseTodoString || '[]') as TTodos[]
+    //             todostore.cards = [...data];
+    //             todostore.showCards();
+    //             todostore.firstInitData = true;
 
 
-        ///////////////////
+    //         }
+    //         else {
+    //             // doc.data() will be undefined in this case
+    //             console.log("No such document!");
+    //         }
 
-    }, [todostore.cards])
+    //     }
+    //     getData();
+
+    //     // const data = JSON.parse(localStorage.getItem('cards') || '[]') as TTodos[]
+    //     // todostore.cards = [...data];
+    //     // todostore.showCards();
+    // }, [])
+
+    // useEffect(() => {
+
+    //     // localStorage.setItem('cards', JSON.stringify(todostore.cards));
+    //     //firestore data write
+
+    //     const todoRef = collection(todostore.firestore, "todos");
+
+    //     const data = [...todostore.cards];
+
+    //     async function setData() {
+
+    //         if (todostore.firstInitData === true) {
+    //             console.log('update data');
+    //             await setDoc(doc(todoRef, todostore.user.email), {
+
+    //                 arrayTodo: JSON.stringify(todostore.cards),
+    //                 allTables: JSON.stringify(todostore.alltables)
+    //             });
+    //         }
+    //     }
+
+    //     setData();
+
+
+    //     ///////////////////
+
+    // }, [todostore.cards])
 
 
     /////////////////////////////////////////////////////////////////

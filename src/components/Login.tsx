@@ -4,7 +4,7 @@ import { signOut, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import todostore from '../store/todostore';
 import { observer } from 'mobx-react-lite';
-import { CARDS_ROUTE, LOGIN_ROUTE } from '../utils/consts';
+import { CARDS_ROUTE, TABLES_ROUTE, LOGIN_ROUTE } from '../utils/consts';
 
 
 
@@ -33,7 +33,7 @@ const Login: React.FC = observer(() => {
                 todostore.loading = false;
                 todostore.error = undefined;
                 todostore.access = true;
-                navigate(CARDS_ROUTE);
+                navigate(TABLES_ROUTE);
                 console.log(user);
                 // ...
             }).catch((error) => {

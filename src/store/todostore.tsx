@@ -7,16 +7,22 @@ declare var confirm: (str: string) => boolean;
 class Todostore {
     firstInitData: boolean = false;
     cards: TTodos[] = [];
+    idTable: number = 0;
     alltables: AllTables = {
-        myTables: [{
-            id: 1,
-            ttodos: this.cards,
-            shareTo: ['abc@mail.com', 'bcd@mail.com']
-        }, {
-            id: 2,
-            ttodos: this.cards,
-            shareTo: ['fddgfdc@mail.com', 'badbcd@mail.com']
-        }], accessTo: []
+        myTables: [
+            {
+                id: 1,
+                name: "New Table 1",
+                ttodos: [],
+                shareTo: ['abc@mail.com', 'bcd@mail.com']
+            },
+            {
+                id: 2,
+                name: "New Table 2",
+                ttodos: [],
+                shareTo: ['fddgfdc@mail.com', 'badbcd@mail.com']
+            }
+        ], accessTo: []
     };
     // counter: number = 0;
     // tempArr: string[] = ['dfg', 'dfgd'];
@@ -54,6 +60,8 @@ class Todostore {
         });
 
         this.cards = [...tempCards];
+
+        this.alltables.myTables[this.idTable].ttodos = [...tempCards];
     }
 
     toggleHandler = (cardId: number, todoId: number) => {
@@ -72,6 +80,7 @@ class Todostore {
         });
         this.cards = [...tempTodos];
 
+        this.alltables.myTables[this.idTable].ttodos = [...tempTodos];
     }
 
     removeHandler = (event: React.MouseEvent, cardId: number, todoId: number) => {
@@ -85,6 +94,8 @@ class Todostore {
                 return item
             })
             this.cards = [...tempTodos];
+
+            this.alltables.myTables[this.idTable].ttodos = [...tempTodos];
         }
     }
 
@@ -105,11 +116,16 @@ class Todostore {
         tempCards.push(newCard);
         this.cards = [...tempCards];
         console.log(this.cards);
+
+        this.alltables.myTables[this.idTable].ttodos = [...tempCards];
     }
 
     removeCardHandler = (cardId: number) => {
         const remove = confirm('Вы уверены что хотите удалить эту карточку?') // window.confirm('Вы уверены что хотите удалить эту запись?')
-        if (remove) this.cards = this.cards.filter((item, index) => index !== cardId);
+        if (remove) {
+            this.cards = this.cards.filter((item, index) => index !== cardId);
+            this.alltables.myTables[this.idTable].ttodos = [...this.cards];
+        }
     }
 
     dndCardHandler = (dragId: number, hoverId: number) => {
@@ -119,6 +135,8 @@ class Todostore {
         updatedCard[hoverId] = drugCard;
         updatedCard[dragId] = hoverCard;
         this.cards = [...updatedCard];
+
+        this.alltables.myTables[this.idTable].ttodos = [...updatedCard];
 
     }
 
@@ -134,6 +152,8 @@ class Todostore {
             const arrAfter = updatedCard[cardHoverId].slice(todoHoverId + 1);
             updatedCard[cardHoverId] = [...arrBefore, drugTodo, ...arrAfter];
             this.cards = [...updatedCard];
+
+            this.alltables.myTables[this.idTable].ttodos = [...updatedCard];
         }
 
         if (cardDragId !== cardHoverId) {
@@ -145,6 +165,8 @@ class Todostore {
             updatedCard[cardHoverId] = [...arrBefore, drugTodo, ...arrAfter];
             const deletedEl = updatedCard[cardDragId].splice(todoDrugId, 1);
             this.cards = [...updatedCard];
+
+            this.alltables.myTables[this.idTable].ttodos = [...updatedCard];
         }
     }
 

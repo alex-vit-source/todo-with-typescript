@@ -11,14 +11,14 @@ import { privateRoutes, publicRoutes } from './routes/routes';
 import { observer } from 'mobx-react-lite';
 import todostore from './store/todostore';
 import { onAuthStateChanged } from 'firebase/auth';
-import { CARDS_ROUTE, LOGIN_ROUTE } from './utils/consts';
+import { CARDS_ROUTE, TABLES_ROUTE, LOGIN_ROUTE } from './utils/consts';
 
 
 
 
 const App: React.FC = observer(() => {
   const availableRoute = todostore.access ? privateRoutes : publicRoutes;
-  const redirRoute = todostore.access ? CARDS_ROUTE : LOGIN_ROUTE;
+  const redirRoute = todostore.access ? TABLES_ROUTE : LOGIN_ROUTE;
 
   onAuthStateChanged(todostore.auth, (user) => {
     if (user) {
