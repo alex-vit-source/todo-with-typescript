@@ -11,17 +11,17 @@ class Todostore {
     alltables: AllTables = {
         myTables: [
             {
-                id: 1,
-                name: "New Table 1",
+                id: Date.now(),
+                name: "New Table",
                 ttodos: [],
-                shareTo: ['abc@mail.com', 'bcd@mail.com']
+                shareTo: []
             },
-            {
-                id: 2,
-                name: "New Table 2",
-                ttodos: [],
-                shareTo: ['fddgfdc@mail.com', 'badbcd@mail.com']
-            }
+            // {
+            //     id: 2,
+            //     name: "New Table 2",
+            //     ttodos: [],
+            //     shareTo: ['fddgfdc@mail.com', 'badbcd@mail.com']
+            // }
         ], accessTo: []
     };
     // counter: number = 0;

@@ -42,6 +42,7 @@ export const Tables: React.FC = observer(() => {
             else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
+                todostore.firstInitData = true;
             }
 
         }
@@ -65,6 +66,7 @@ export const Tables: React.FC = observer(() => {
 
             if (todostore.firstInitData === true) {
                 console.log('update data');
+                console.log(todostore.user.email);
                 await setDoc(doc(todoRef, todostore.user.email), {
 
                     arrayTodo: JSON.stringify(todostore.cards),
@@ -93,9 +95,9 @@ export const Tables: React.FC = observer(() => {
         <>
             <h4> Мои рабочие столы </h4>
             <ul>
-                {todostore.alltables.myTables.map(({ name, ttodos }, index) => <li onClick={() => chooseCard(ttodos, index)}><Link to="/card">{name} </Link></li>
+                {todostore.alltables.myTables.map(({ name, ttodos }, index) => <li key={`${name}${index}`} onClick={() => chooseCard(ttodos, index)}><Link to="/card">{name} </Link></li>
                 )}
-
+                <li><button onClick={() => { console.log('ADD') }}><i className="material-icons">add</i></button></li>
             </ul>
             <h4> Cтолы коллег к которым есть доступ </h4>
             <ul>
