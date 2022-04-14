@@ -91,13 +91,33 @@ export const Tables: React.FC = observer(() => {
         todostore.idTable = idTable;
     }
 
+    const addTable = () => {
+
+        console.log('Table was added');
+        const newTable = [{
+            id: Date.now(),
+            name: "New Table",
+            ttodos: [],
+            shareTo: []
+        },
+        {
+            id: Date.now(),
+            name: "New Table1",
+            ttodos: [],
+            shareTo: []
+        }
+        ]
+        todostore.alltables.myTables = [...newTable];
+
+    }
+
     return (
         <>
             <h4> Мои рабочие столы </h4>
             <ul>
                 {todostore.alltables.myTables.map(({ name, ttodos }, index) => <li key={`${name}${index}`} onClick={() => chooseCard(ttodos, index)}><Link to="/card">{name} </Link></li>
                 )}
-                <li><button onClick={() => { console.log('++') }}><i className="material-icons">add</i></button></li>
+                <li><button onClick={addTable}><i className="material-icons">add</i></button></li>
             </ul>
             <h4> Cтолы коллег к которым есть доступ </h4>
             <ul>
