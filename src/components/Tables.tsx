@@ -97,7 +97,7 @@ export const Tables: React.FC = observer(() => {
             <ul>
                 {todostore.alltables.myTables.map(({ name, ttodos }, index) => <li key={`${name}${index}`} onClick={() => chooseCard(ttodos, index)}><Link to="/card">{name} </Link></li>
                 )}
-                <li><button onClick={() => { console.log('ADD') }}><i className="material-icons">add</i></button></li>
+                <li><button onClick={() => { console.log('++') }}><i className="material-icons">add</i></button></li>
             </ul>
             <h4> Cтолы коллег к которым есть доступ </h4>
             <ul>
