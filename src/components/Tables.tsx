@@ -10,7 +10,7 @@ import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { AllTables, TTodos } from '../interfaces';
 
 
-
+declare var confirm: (str: string) => boolean;
 
 
 export const Tables: React.FC = observer(() => {
@@ -80,7 +80,7 @@ export const Tables: React.FC = observer(() => {
 
         ///////////////////
 
-    }, [todostore.cards])
+    }, [todostore.alltables.myTables])
 
 
     const chooseCard = (cards: TTodos[], idTable: number) => {
@@ -99,23 +99,44 @@ export const Tables: React.FC = observer(() => {
             name: "New Table",
             ttodos: [],
             shareTo: []
-        },
-        {
-            id: Date.now(),
-            name: "New Table1",
-            ttodos: [],
-            shareTo: []
         }
         ]
-        todostore.alltables.myTables = [...newTable];
+        todostore.alltables.myTables = [...todostore.alltables.myTables, ...newTable];
 
+    }
+
+    const delTable = (index: number): void => {
+
+        console.log('delete Table');
+        const remove = confirm('Вы уверены что хотите удалить этот рабочий стол?') // window.confirm('Вы уверены что хотите удалить эту запись?')
+        if (remove) {
+            //     this.cards = this.cards.filter((item, index) => index !== cardId);
+            //     this.alltables.myTables[this.idTable].ttodos = [...this.cards];
+            todostore.alltables.myTables = todostore.alltables.myTables.filter((item, ind) => ind !== index);
+        }
+
+    }
+
+    const shareTable = (index: number): void => {
+        todostore.alltables.myTables[index].shareTo = [...todostore.alltables.myTables[index].shareTo,
+            'ganover@dmail.com'];
+        console.log(todostore.alltables.myTables[index].shareTo)
     }
 
     return (
         <>
             <h4> Мои рабочие столы </h4>
             <ul>
-                {todostore.alltables.myTables.map(({ name, ttodos }, index) => <li key={`${name}${index}`} onClick={() => chooseCard(ttodos, index)}><Link to="/card">{name} </Link></li>
+                {todostore.alltables.myTables.map(({ name, ttodos, shareTo }, index) =>
+                    <li key={`${name}${index}`} >
+                        <Link to="/card" onClick={() => chooseCard(ttodos, index)}>{name} </Link>
+                        <a href='#' className="material-icons red-text" onClick={() => delTable(index)}>delete</a>
+                        <a href='#modal1' className="material-icons red-text waves-effect waves-light modal-trigger" onClick={() => shareTable(index)}>share</a>
+
+
+                        {shareTo.map((item, id) => <span key={`${id}`}> {item} </span>)
+                        }
+                    </li>
                 )}
                 <li><button onClick={addTable}><i className="material-icons">add</i></button></li>
             </ul>
@@ -126,6 +147,18 @@ export const Tables: React.FC = observer(() => {
                 <li>3</li>
                 <li>4</li>
             </ul>
+
+            <div className="overlay" style={{ display: 'none' }}></div>
+            <div className="box" style={{ display: 'none' }}>
+                <div className='buttonField'>
+                    <div className="cl-btn-7" onClick={() => { console.log('Close window') }}></div>
+                </div>
+                <h1>Important message</h1>
+                <p>
+                    Here comes a very important message for your user.
+                    Turn this window off by clicking the cross.
+                </p>
+            </div>
         </>
     )
 })

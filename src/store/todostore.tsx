@@ -10,12 +10,12 @@ class Todostore {
     idTable: number = 0;
     alltables: AllTables = {
         myTables: [
-            {
-                id: Date.now(),
-                name: "New Table",
-                ttodos: [],
-                shareTo: []
-            },
+            // {
+            //     id: Date.now(),
+            //     name: "New Table",
+            //     ttodos: [],
+            //     shareTo: []
+            // },
             // {
             //     id: 2,
             //     name: "New Table 2",
