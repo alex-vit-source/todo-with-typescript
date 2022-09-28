@@ -32,11 +32,20 @@ export const TodoBox: React.FC<TodoBoxProps> = observer(({ visible }) => {
                     <div className="cl-btn-7" onClick={() => { console.log('CLOSE WINDOW'); todostore.visible = false }}></div>
                     {/* { setOverlayBox({ display: 'none' }); } */}
                 </div>
-                <h1>Important message</h1>
-                <p>
-                    Here comes a very important message for your user.
-                    Turn this window off by clicking the cross.
-                </p>
+                <div className="row">
+                    <form className="col s12">
+                        <div className="row">
+                            <div className="input-field col s6">
+                                <input placeholder="Placeholder" id="first_name" type="text" className="validate" />
+                                <label htmlFor="first_name">First Name</label>
+                            </div>
+                            <div className="input-field col s6">
+                                <input id="last_name" type="text" className="validate" />
+                                <label htmlFor="last_name">Last Name</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </>
     )
