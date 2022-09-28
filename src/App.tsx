@@ -3,10 +3,10 @@ import React from 'react';
 // import { HTML5Backend } from 'react-dnd-html5-backend';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
-import { TodoBox } from './components/TodoBox';
 import { Cards } from './container/Cards';
 import { NotFound } from './components/NotFound';
 import { About } from './components/About';
+import { TodoBox } from './components/TodoBox';
 import { privateRoutes, publicRoutes } from './routes/routes';
 import { observer } from 'mobx-react-lite';
 import todostore from './store/todostore';
@@ -49,7 +49,12 @@ const App: React.FC = observer(() => {
 
     <>
       <Router>
-        <TodoBox />
+        <TodoBox visible={todostore.visible}
+          environmentId={123}
+          environmentName='Devise'
+          environmentPrice={32000}
+          environmentAmount={43}
+          orderDate={new Date('1995-12-17T03:24:00')} />
         <Navbar />
 
         <div className='container'>

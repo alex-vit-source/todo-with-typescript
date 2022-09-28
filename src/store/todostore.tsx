@@ -35,6 +35,8 @@ class Todostore {
     loading: boolean = false;
     error: any;
 
+    visible: boolean = false;
+
     constructor() {
         makeAutoObservable(this)
     }

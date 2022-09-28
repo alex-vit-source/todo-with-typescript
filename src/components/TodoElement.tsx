@@ -3,6 +3,7 @@ import { ITodo } from "../interfaces";
 import { useDrag, useDrop } from 'react-dnd';
 import todostore from '../store/todostore';
 import { observer } from 'mobx-react-lite';
+import { TodoBox } from '../components/TodoBox';
 
 type TodoProps = {
     todo: ITodo,
@@ -69,7 +70,7 @@ export const TodoElement: React.FC<TodoProps> = observer(({ todo, indCard, indTo
                             todostore.toggleHandler(indCard, todo.id)
                             // onToggle(indCard, todo.id)
                         } />
-                    <span style={{ width: '80%', height: 'auto', display: 'block', wordWrap: 'break-word' }}>{todo.title}</span>
+                    <span onClick={() => { console.log(`Open OverBox Card=${indCard} ToDo=${todo.id}`) }} style={{ width: '80%', height: 'auto', display: 'block', wordWrap: 'break-word' }}>{todo.title}</span>
                     {/* <i className="material-icons red-text">delete</i> */}
                     <i className="material-icons red-text" onClick={(event) => todostore.removeHandler(event, indCard, todo.id)}>delete</i>
                 </label>
